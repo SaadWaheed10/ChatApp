@@ -1,6 +1,6 @@
-import { Conversation } from '../@types/Types';
+import { Chat } from '../@types/Types';
 
-export const chatData: Conversation[] = [
+export const chatData: Chat[] = [
   {
     id: 'c1',
     name: 'Laila Shah',

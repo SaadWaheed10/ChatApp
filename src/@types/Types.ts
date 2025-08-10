@@ -5,7 +5,7 @@ export interface Message {
   sender: 'user' | 'other';
 }
 
-export interface Conversation {
+export interface Chat {
   id: string;
   name: string;
   messages: Message[];

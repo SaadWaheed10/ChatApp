@@ -7,24 +7,27 @@ import { postMessage } from '../store/chatSlice';
 import ChatScreenComponent from '../components/ChatScreenComponent';
 
 const ChatScreen = ({ route }: any) => {
-  const { chatId } = route.params ?? {};
+  const { conversationId } = route.params ?? {};
+  console.log('chat id : in chat screen', conversationId);
   const dispatch = useDispatch<AppDispatch>();
   const messageListRef = useRef<FlatList>(null);
   const [messageText, setMessageText] = useState('');
 
   const chat = useSelector((state: AppState) =>
-    state.chatData.chatList.find((chatItem: any) => chatItem.id === chatId),
+    state.chatData.chatList.find(
+      (chatItem: any) => chatItem.id === conversationId,
+    ),
   );
 
   const handleMessageSend = useCallback(() => {
     if (!messageText.trim()) return;
     LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);
-    dispatch(postMessage({ chatId, content: messageText.trim() }));
+    dispatch(postMessage({ conversationId, content: messageText.trim() }));
     setMessageText('');
     setTimeout(() => {
       messageListRef.current?.scrollToEnd({ animated: true });
     }, 120);
-  }, [messageText, dispatch, chatId]);
+  }, [messageText, dispatch, conversationId]);
 
   if (!chat) return null;
 

@@ -66,7 +66,7 @@ const createStyles = (theme: ThemePalette) =>
     },
     headerSection: {
       backgroundColor: theme.main,
-      height: scaleVertical(150),
+      height: scaleVertical(200),
       alignItems: 'center',
       justifyContent: 'flex-end',
       paddingBottom: scaleVertical(12),

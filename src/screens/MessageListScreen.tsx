@@ -32,6 +32,7 @@ const MessageListScreen = () => {
 
   const onChatSelect = (id: string) => {
     navigation.navigate('Chat', { conversationId: id });
+    console.log('chat id in message list screen: ', id);
   };
 
   const onStarToggle = (chatId: string) => {

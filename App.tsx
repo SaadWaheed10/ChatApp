@@ -5,24 +5,36 @@
  * @format
  */
 
-import { NewAppScreen } from '@react-native/new-app-screen';
-import { StatusBar, StyleSheet, useColorScheme, View } from 'react-native';
+import React, { useEffect } from 'react';
+import RootNavigator from './src/navigation/RootNavigator';
+import { Provider } from 'react-redux';
+import { NavigationContainer } from '@react-navigation/native';
+import { PersistGate } from 'redux-persist/integration/react';
+import { Platform, UIManager } from 'react-native';
+import { AppThemeProvider } from './src/context/ThemeControl';
+import { appPersistor, appStore } from './src/store';
 
 function App() {
-  const isDarkMode = useColorScheme() === 'dark';
+  useEffect(() => {
+    if (
+      Platform.OS === 'android' &&
+      UIManager.setLayoutAnimationEnabledExperimental
+    ) {
+      UIManager.setLayoutAnimationEnabledExperimental(true);
+    }
+  }, []);
 
   return (
-    <View style={styles.container}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <NewAppScreen templateFileName="App.tsx" />
-    </View>
+    <AppThemeProvider>
+      <Provider store={appStore}>
+        <PersistGate loading={null} persistor={appPersistor}>
+          <NavigationContainer>
+            <RootNavigator />
+          </NavigationContainer>
+        </PersistGate>
+      </Provider>
+    </AppThemeProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});
 
 export default App;
